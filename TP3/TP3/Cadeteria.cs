@@ -10,5 +10,8 @@ namespace TP3
     {
         string nombre;
         List<Cadete> listaCadetes;
+
+        public string Nombre { get => nombre; set => nombre = value; }
+        public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }
     }
 }
