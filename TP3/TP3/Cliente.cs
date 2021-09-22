@@ -17,5 +17,13 @@ namespace TP3
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
+
+        public Cliente(int i,string n,string d,string t)
+        {
+            id = i;
+            nombre = n;
+            direccion = d;
+            telefono = t;
+        }
     }
 }
