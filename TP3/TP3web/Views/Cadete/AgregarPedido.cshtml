@@ -1,3 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+@model List<TP3.Cadete>
+
+<form asp-action="addPedido" asp-controller="Cadete" method="post">
+    <h2>Datos Pedido</h2>
+    Numero: <input type="text" name="numero" value="" />
+    Obeservacion: <input type="text" name="observacion" value="" />
+    Estado: <input type="text" name="estado" value="" />
+    Cadete: <select name="cad_id">
+    @foreach (var cad in Model)
+     {
+        <option value="@cad.Id">@cad.Id - @cad.Nombre </option>
+     }
+        </select>
+    <h2>Datos Cliente</h2>
+    Id: <input type="number" name="id_c" value="" />
+    Nombre: <input type="text" name="nombre_c" value="" />
+    Direccion: <input type="text" name="direccion_c" value="" />
+    Telefono: <input type="text" name="telefono_c" value="" />
+    <button type="submit">Agregar</button>
+</form>
