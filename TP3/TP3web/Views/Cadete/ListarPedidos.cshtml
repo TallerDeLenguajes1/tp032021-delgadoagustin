@@ -1,3 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+@model List<TP3.Pedido>;
+
+<table>
+    @foreach (var ped in Model)
+    {
+        <tr>
+            <td>@ped.Numero</td>
+            <td>@ped.Obs</td>
+            <td>@ped.Estado</td>
+            <td>@ped.Cliente.Nombre</td>           
+        </tr>
+    }
+
+</table>

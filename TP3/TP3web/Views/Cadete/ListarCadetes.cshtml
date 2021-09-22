@@ -8,7 +8,11 @@
     @foreach (var cad in Model)
     {
         <tr>
-            <td>@cad.Id</td><td>@cad.Nombre</td><td>@cad.Telefono</td><td>@cad.Direccion</td>
+            <td>@cad.Id</td>
+            <td>@cad.Nombre</td>
+            <td>@cad.Telefono</td>
+            <td>@cad.Direccion</td>
+            <td><form asp-action="ListarPedidos" asp-controller="Cadete" method="post"><button type="submit" name="id_cad" value="@cad.Id">Mostrar Pedidos</button></form></td>
         </tr>
     }
 

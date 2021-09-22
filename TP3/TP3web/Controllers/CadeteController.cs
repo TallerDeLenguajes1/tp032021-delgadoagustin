@@ -57,9 +57,10 @@ namespace TP3web.Controllers
         {
             return View(baseDeDatos.cadeteria.listaCadetes);
         }
-        public IActionResult ListarPedidos()
+        public IActionResult ListarPedidos(int id_cad)
         {
-            return View(baseDeDatos.cadeteria.listaPedidos);
+
+            return View(baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == id_cad).ListadoPedidos);
         }
 
     }
