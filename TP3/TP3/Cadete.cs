@@ -19,5 +19,10 @@ namespace TP3
         public string Direccion { get => direccion; set => direccion = value; }
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
+    
+        public void agregarPedido(Pedido p)
+        {
+            listadoPedidos.Add(p);
+        }
     }
 }
