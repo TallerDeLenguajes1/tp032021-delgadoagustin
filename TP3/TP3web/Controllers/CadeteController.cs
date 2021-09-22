@@ -10,30 +10,33 @@ namespace TP3web.Controllers
 {
     public class CadeteController : Controller
     {
+    
         private readonly ILogger<CadeteController> _logger;
+        private readonly Base baseDeDatos;
 
-        public CadeteController(ILogger<CadeteController> logger)
+        public CadeteController(ILogger<CadeteController> logger, Base BaseDeDatos)
         {
             _logger = logger;
+            baseDeDatos = BaseDeDatos;
         }
 
         public IActionResult Index()
         {
-            List<Cliente> Clientes = new();
+            
             for (int i = 0; i < 5; i++)
             {
-                Cliente cl = new()
+                Cadete cl = new()
                 {
                     Nombre = "Agustin",
                     Direccion = "Gorriti",
                     Telefono = "1234",
                     Id = i
                 };
-                Clientes.Add(cl);
+                baseDeDatos.cadeteria.listaCadetes.Add(cl);
             }
             
            
-            return View(Clientes);
+            return View(baseDeDatos.cadeteria.listaCadetes);
         }
     }
 }

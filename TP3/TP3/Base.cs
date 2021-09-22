@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace TP3
 {
-    public class Cadeteria
+    public class Base
     {
-        public List<Cadete> listaCadetes = new();
-        public List<Pedido> listaPedidos = new();
-        
+        public Cadeteria cadeteria { get; set; }
+
+        public Base()
+        {
+            cadeteria = new();
+        }
     }
 }

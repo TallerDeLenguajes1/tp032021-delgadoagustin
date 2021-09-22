@@ -14,6 +14,7 @@ namespace TP3web
 {
     public class Startup
     {
+        static TP3.Base BaseDeDatos = new();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +26,7 @@ namespace TP3web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddSingleton(BaseDeDatos);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
