@@ -22,7 +22,10 @@ namespace TP3web.Controllers
 
         public IActionResult Index()
         {
-            
+            return View();
+        }
+        public IActionResult AgregarCadete()
+        {
             for (int i = 0; i < 5; i++)
             {
                 Cadete cl = new()
@@ -34,9 +37,20 @@ namespace TP3web.Controllers
                 };
                 baseDeDatos.cadeteria.listaCadetes.Add(cl);
             }
-            
-           
-            return View(baseDeDatos.cadeteria.listaCadetes);
+            return View();
         }
+        public IActionResult AgregarPedido()
+        {
+            return View();
+        }
+        public IActionResult ListarCadetes()
+        {
+            return View();
+        }
+        public IActionResult ListarPedidos()
+        {
+            return View();
+        }
+
     }
 }
