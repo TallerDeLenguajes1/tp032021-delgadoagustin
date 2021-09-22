@@ -10,7 +10,7 @@ namespace TP3web.Controllers
 {
     public class CadeteController : Controller
     {
-    
+        static int _id;
         private readonly ILogger<CadeteController> _logger;
         private readonly Base baseDeDatos;
 
@@ -24,19 +24,22 @@ namespace TP3web.Controllers
         {
             return View();
         }
+
+        public IActionResult addCadete(string nombre,string direccion,string telefono)
+        {
+            Cadete cad = new()
+            {
+                Nombre = nombre,
+                Direccion = direccion,
+                Telefono = telefono,
+                Id = _id++
+            };
+            baseDeDatos.cadeteria.listaCadetes.Add(cad);
+            return RedirectToAction("ListarCadetes");
+        }
+
         public IActionResult AgregarCadete()
         {
-            for (int i = 0; i < 5; i++)
-            {
-                Cadete cl = new()
-                {
-                    Nombre = "Agustin",
-                    Direccion = "Gorriti",
-                    Telefono = "1234",
-                    Id = i
-                };
-                baseDeDatos.cadeteria.listaCadetes.Add(cl);
-            }
             return View();
         }
         public IActionResult AgregarPedido()
@@ -45,11 +48,11 @@ namespace TP3web.Controllers
         }
         public IActionResult ListarCadetes()
         {
-            return View();
+            return View(baseDeDatos.cadeteria.listaCadetes);
         }
         public IActionResult ListarPedidos()
         {
-            return View();
+            return View(baseDeDatos.cadeteria.listaPedidos);
         }
 
     }
