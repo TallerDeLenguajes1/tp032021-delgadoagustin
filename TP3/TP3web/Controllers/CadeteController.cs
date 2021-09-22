@@ -41,7 +41,7 @@ namespace TP3web.Controllers
         public IActionResult addPedido(int numero, string observacion, string estado, int cad_id, int id_c, string nombre_c, string direccion_c, string telefono_c)
         {
             Pedido ped = new Pedido(numero, observacion, estado, id_c, nombre_c, direccion_c, telefono_c);
-            baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == cad_id).ListadoPedidos.Add(ped);
+            baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == cad_id).agregarPedido(ped);
             return RedirectToAction("ListarCadetes");
         }
 

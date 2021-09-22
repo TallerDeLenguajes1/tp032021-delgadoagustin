@@ -12,7 +12,7 @@ namespace TP3
         string nombre;
         string direccion;
         string telefono;
-        List<Pedido> listadoPedidos;
+        List<Pedido> listadoPedidos = new();
 
         public int Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
