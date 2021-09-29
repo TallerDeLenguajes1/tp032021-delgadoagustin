@@ -37,6 +37,13 @@ namespace TP3web.Controllers
             baseDeDatos.cadeteria.listaCadetes.Add(cad);
             return RedirectToAction("ListarCadetes");
         }
+        public IActionResult deleteCadete(int id_cad)
+        {
+            Cadete cadeteToRemove = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
+            baseDeDatos.cadeteria.listaCadetes.Remove(cadeteToRemove);
+            return RedirectToAction("ListarCadetes");
+        }
+
 
         public IActionResult addPedido(int numero, string observacion, string estado, int cad_id, int id_c, string nombre_c, string direccion_c, string telefono_c)
         {
@@ -49,6 +56,9 @@ namespace TP3web.Controllers
         {
             return View();
         }
+      
+
+
         public IActionResult AgregarPedido()
         {
             return View(baseDeDatos.cadeteria.listaCadetes);
