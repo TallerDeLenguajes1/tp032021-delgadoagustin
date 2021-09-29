@@ -52,11 +52,25 @@ namespace TP3web.Controllers
             return RedirectToAction("ListarCadetes");
         }
 
+        public IActionResult updateCadete(int id_cad,string nombre,string direccion,string telefono)
+        {
+            Cadete cadeteToUpdate = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
+            cadeteToUpdate.Nombre = nombre;
+            cadeteToUpdate.Direccion = direccion;
+            cadeteToUpdate.Telefono = telefono;
+            return RedirectToAction("ListarCadetes");
+    }
+
         public IActionResult AgregarCadete()
         {
             return View();
         }
-      
+
+        public IActionResult ModificarCadete(int id_cad)
+        {
+            Cadete cadeteAModificar = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
+            return View(cadeteAModificar);
+        }
 
 
         public IActionResult AgregarPedido()

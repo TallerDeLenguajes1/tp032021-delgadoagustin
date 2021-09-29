@@ -1,0 +1,13 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model TP3.Cadete
+
+<form asp-action="updateCadete" asp-controller="Cadete" method="post">
+    <h1>Cadete Id -> @Model.Id</h1>
+    Nombre: <input type="text" name="nombre" value="@Model.Nombre" />
+    Direcicon: <input type="text" name="direccion" value="@Model.Direccion" />
+    Telefono: <input type="text" name="telefono" value="@Model.Telefono" />
+    <button type="submit" value="@Model.Id" name="id_cad">Modificar</button>
+</form>

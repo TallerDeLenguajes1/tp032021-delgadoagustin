@@ -13,6 +13,7 @@
         <td>@cad.Telefono</td>
         <td>@cad.Direccion</td>
         <td><form asp-action="ListarPedidos" asp-controller="Cadete" method="post"><button type="submit" name="id_cad" value="@cad.Id">Mostrar Pedidos</button></form></td>
+        <td><form asp-action="ModificarCadete" asp-controller="Cadete" method="post"><button type="submit" name="id_cad" value="@cad.Id">Modificar</button></form></td>
         <td><form asp-action="deleteCadete" asp-controller="Cadete" method="post"><button type="submit" name="id_cad" value="@cad.Id">Borrar Cadete</button></form></td>
     </tr>
     }
