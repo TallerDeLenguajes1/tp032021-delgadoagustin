@@ -1,0 +1,1 @@
+{"listaCadetes":[{"Id":0,"Nombre":"1","Direccion":"2","Telefono":"3","ListadoPedidos":[]},{"Id":1,"Nombre":"2","Direccion":"3","Telefono":"4","ListadoPedidos":[{"Numero":4,"Obs":"5","Cliente":{"Id":1,"Nombre":"1","Direccion":"2","Telefono":"2"},"Estado":"3"}]}],"listaPedidos":[]}

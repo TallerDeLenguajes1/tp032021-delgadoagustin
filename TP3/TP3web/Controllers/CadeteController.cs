@@ -22,6 +22,7 @@ namespace TP3web.Controllers
 
         public IActionResult Index()
         {
+            baseDeDatos.CargarCadeteria();
             return View();
         }
 
@@ -35,12 +36,14 @@ namespace TP3web.Controllers
                 Id = _id++
             };
             baseDeDatos.cadeteria.listaCadetes.Add(cad);
+            baseDeDatos.GuardarCadeteria();
             return RedirectToAction("ListarCadetes");
         }
         public IActionResult deleteCadete(int id_cad)
         {
             Cadete cadeteToRemove = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
             baseDeDatos.cadeteria.listaCadetes.Remove(cadeteToRemove);
+            baseDeDatos.GuardarCadeteria();
             return RedirectToAction("ListarCadetes");
         }
 
@@ -49,6 +52,7 @@ namespace TP3web.Controllers
         {
             Pedido ped = new Pedido(numero, observacion, estado, id_c, nombre_c, direccion_c, telefono_c);
             baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == cad_id).agregarPedido(ped);
+            baseDeDatos.GuardarCadeteria();
             return RedirectToAction("ListarCadetes");
         }
 
@@ -58,6 +62,7 @@ namespace TP3web.Controllers
             cadeteToUpdate.Nombre = nombre;
             cadeteToUpdate.Direccion = direccion;
             cadeteToUpdate.Telefono = telefono;
+            baseDeDatos.GuardarCadeteria();
             return RedirectToAction("ListarCadetes");
     }
 
