@@ -2,16 +2,27 @@
     ViewData["Title"] = "Home Page";
 }
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarCadete">Agregar Cadete</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarPedido">Agregar Pedido</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  asp-area="" asp-controller="Cadete" asp-action="ListarCadetes">Listar Cadetes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="text-center">
     <h1 class="display-4">Cadeteria</h1>
-    <table>
-        <tr>
-            <td><a class="btn btn-primary btn-block" asp-area="" asp-controller="Cadete" asp-action="AgregarCadete">Agregar Cadete</a></td>
-            <td><a class="btn btn-primary btn-block" asp-area="" asp-controller="Cadete" asp-action="AgregarPedido">Agregar Pedido</a></td>
-        </tr>
-        <tr>
-            <td><a class="btn btn-primary btn-block" asp-area="" asp-controller="Cadete" asp-action="ListarCadetes">Listar Cadetes</a></td>
-            @*<td><a class="btn btn-primary btn-block" asp-area="" asp-controller="Cadete" asp-action="ListarPedidos">Listar Pedidos</a></td>*@
-        </tr>
-    </table>
 </div>

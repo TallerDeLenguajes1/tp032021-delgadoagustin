@@ -2,9 +2,40 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form asp-action="addCadete" asp-controller="Cadete" method="post">
-    Nombre: <input type="text" name="nombre" value="" />
-    Direcicon: <input type="text" name="direccion" value="" />
-    Telefono: <input type="text" name="telefono" value="" />
-    <button type="submit">Agregar</button>
-</form>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" asp-area="" asp-controller="Cadete" asp-action="AgregarCadete">Agregar Cadete</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarPedido">Agregar Pedido</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="ListarCadetes">Listar Cadetes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="m-3">
+    <form asp-action="addCadete" asp-controller="Cadete" method="post" class="p-3 col-md-7 m-auto border-primary bg-light">
+        <div class="m-3">
+            <input class="form-control" type="text" name="nombre" placeholder="Nombre" value="" />
+        </div>
+        <div class="m-3">
+            <input class="form-control" type="text" name="direccion" placeholder="Direccion" value="" />
+        </div>
+        <div class="m-3">
+            <input class="form-control" type="text" name="telefono" placeholder="Telefono" value="" />
+        </div>
+        <div class="m-3">
+            <button class="btn btn-primary btn-lg m-auto" type="submit">Agregar</button>
+        </div>
+    </form>
+</div>

@@ -22,7 +22,6 @@ namespace TP3web.Controllers
 
         public IActionResult Index()
         {
-            baseDeDatos.CargarCadeteria();
             return View();
         }
 

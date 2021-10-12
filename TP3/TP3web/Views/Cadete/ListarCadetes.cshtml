@@ -3,18 +3,59 @@
 }
 
 @model List<TP3.Cadete>;
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarCadete">Agregar Cadete</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarPedido">Agregar Pedido</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Cadete" asp-action="ListarCadetes">Listar Cadetes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<table>
+<table class="table p-2 m-3">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Direccion</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
     @foreach (var cad in Model)
     {
     <tr>
-        <td>@cad.Id</td>
+        <th scope="row">@cad.Id</th>
         <td>@cad.Nombre</td>
         <td>@cad.Telefono</td>
         <td>@cad.Direccion</td>
-        <td><form asp-action="ListarPedidos" asp-controller="Cadete" method="post"><button type="submit" name="id_cad" value="@cad.Id">Mostrar Pedidos</button></form></td>
-        <td><form asp-action="ModificarCadete" asp-controller="Cadete" method="post"><button type="submit" name="id_cad" value="@cad.Id">Modificar</button></form></td>
-        <td><form asp-action="deleteCadete" asp-controller="Cadete" method="post"><button type="submit" name="id_cad" value="@cad.Id">Borrar Cadete</button></form></td>
+        <td>
+            <form asp-action="ListarPedidos" asp-controller="Cadete" method="post">
+                <button class="btn btn-primary btn-sm m-auto" type="submit" name="id_cad" value="@cad.Id">Mostrar Pedidos</button>
+            </form>
+        </td>
+        <td>
+            <form asp-action="ModificarCadete" asp-controller="Cadete" method="post">
+                <button class="btn btn-primary btn-sm m-auto" type="submit" name="id_cad" value="@cad.Id">Modificar</button>
+            </form>
+        </td>
+        <td>
+            <form asp-action="deleteCadete" asp-controller="Cadete" method="post">
+                <button class="btn btn-primary btn-sm m-auto" type="submit" name="id_cad" value="@cad.Id">Borrar Cadete</button>
+            </form>
+        </td>
     </tr>
     }
 

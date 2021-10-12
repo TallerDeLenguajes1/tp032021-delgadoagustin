@@ -18,6 +18,7 @@ namespace TP3web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            BaseDeDatos.CargarCadeteria();
         }
 
         public IConfiguration Configuration { get; }
