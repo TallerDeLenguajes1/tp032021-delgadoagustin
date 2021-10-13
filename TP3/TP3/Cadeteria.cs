@@ -10,6 +10,13 @@ namespace TP3
     {
         public List<Cadete> listaCadetes = new();
         public List<Pedido> listaPedidos = new();
-        
+
+        public Cadeteria()
+        {
+            listaCadetes = new List<Cadete>();
+            listaPedidos = new List<Pedido>();
+        }
+      
     }
+    
 }

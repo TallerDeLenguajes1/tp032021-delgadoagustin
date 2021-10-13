@@ -12,7 +12,6 @@ namespace TP3
     {
         string path = @"cadeteria.json";
         public Cadeteria cadeteria { get; set; }
-        public static int id;
 
 
         public Base()
@@ -31,12 +30,13 @@ namespace TP3
                 }
             }
             else {
-                File.Create(path);
+                var file = File.Create(path);
+                file.Close();
             }
         }
         public void GuardarCadeteria()
         {
-            string cadeteriaJson = JsonConvert.SerializeObject(cadeteria);
+            string cadeteriaJson = JsonConvert.SerializeObject(cadeteria,Formatting.Indented);
             File.WriteAllText(path, cadeteriaJson);
         }
     }

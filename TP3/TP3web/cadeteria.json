@@ -1,1 +1,26 @@
-{"listaCadetes":[{"Id":0,"Nombre":"1","Direccion":"2","Telefono":"3","ListadoPedidos":[]},{"Id":1,"Nombre":"2","Direccion":"3","Telefono":"4","ListadoPedidos":[{"Numero":4,"Obs":"5","Cliente":{"Id":1,"Nombre":"1","Direccion":"2","Telefono":"2"},"Estado":"3"}]}],"listaPedidos":[]}
+{
+  "listaCadetes": [
+    {
+      "Id": 1,
+      "Nombre": "Luciano",
+      "Direccion": "Alberdi 500",
+      "Telefono": "3865134679",
+      "ListadoPedidos": []
+    },
+    {
+      "Id": 2,
+      "Nombre": "Agustin",
+      "Direccion": "Jujuy 200",
+      "Telefono": "12312",
+      "ListadoPedidos": []
+    },
+    {
+      "Id": 3,
+      "Nombre": "Mariano",
+      "Direccion": "Ayacucho 400",
+      "Telefono": "381123789",
+      "ListadoPedidos": []
+    }
+  ],
+  "listaPedidos": []
+}

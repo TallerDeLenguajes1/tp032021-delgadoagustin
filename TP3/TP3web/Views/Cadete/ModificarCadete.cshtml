@@ -4,10 +4,41 @@
 
 @model TP3.Cadete
 
-<form asp-action="updateCadete" asp-controller="Cadete" method="post">
-    <h1>Cadete Id -> @Model.Id</h1>
-    Nombre: <input type="text" name="nombre" value="@Model.Nombre" />
-    Direcicon: <input type="text" name="direccion" value="@Model.Direccion" />
-    Telefono: <input type="text" name="telefono" value="@Model.Telefono" />
-    <button type="submit" value="@Model.Id" name="id_cad">Modificar</button>
-</form>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarCadete">Agregar Cadete</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarPedido">Agregar Pedido</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="ListarCadetes">Listar Cadetes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="m-3">
+    <form asp-action="updateCadete" asp-controller="Cadete" method="post" class="p-3 col-md-7 m-auto border-primary bg-light">
+        <h3>Cadete Id -> <b>@Model.Id</b></h3>
+        <div class="m-3">
+            <input class="form-control" type="text" name="nombre" placeholder="Nombre" value="@Model.Nombre" />
+        </div>
+        <div class="m-3">
+            <input class="form-control" type="text" name="direccion" placeholder="Direccion" value="@Model.Direccion" />
+        </div>
+        <div class="m-3">
+            <input class="form-control" type="text" name="telefono" placeholder="Telefono" value="@Model.Telefono" />
+        </div>
+        <div class="m-3">
+            <button class="btn btn-primary btn-lg m-auto" type="submit" value="@Model.Id" name="id_cad">Modificar</button>
+        </div>
+    </form>
+</div>

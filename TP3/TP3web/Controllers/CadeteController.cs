@@ -10,7 +10,6 @@ namespace TP3web.Controllers
 {
     public class CadeteController : Controller
     {
-        static int _id;
         private readonly ILogger<CadeteController> _logger;
         private readonly Base baseDeDatos;
 
@@ -27,12 +26,18 @@ namespace TP3web.Controllers
 
         public IActionResult addCadete(string nombre,string direccion,string telefono)
         {
+            int id = 0;
+            if (baseDeDatos.cadeteria.listaCadetes.Count() > 0)
+            {
+                id = baseDeDatos.cadeteria.listaCadetes.Max(x => x.Id)+1;
+            }
+           
             Cadete cad = new()
             {
                 Nombre = nombre,
                 Direccion = direccion,
                 Telefono = telefono,
-                Id = _id++
+                Id = id
             };
             baseDeDatos.cadeteria.listaCadetes.Add(cad);
             baseDeDatos.GuardarCadeteria();
