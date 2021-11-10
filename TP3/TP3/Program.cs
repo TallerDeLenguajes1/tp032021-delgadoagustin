@@ -7,15 +7,9 @@ namespace TP3
     {
         static void Main(string[] args)
         {
-
-            string cadena = "Data Source=Cadeteria.db;Cache=Shared";
-            RepositorioCadete repo = new(cadena);
-            List<Cadete> lista = repo.ListaCadetes();
-            foreach(Cadete x in lista) 
-            {
-                Console.WriteLine(x.Id);
-            }
-            
+            RepositorioCadete repo = new("Data Source=Cadeteria.db;Cache=Shared;");
+            Cadete cad = repo.cadetePorID(2);
+            Console.WriteLine(cad.Nombre);
         }
     }
 }

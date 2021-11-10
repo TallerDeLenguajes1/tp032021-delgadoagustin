@@ -13,18 +13,24 @@ namespace TP3web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly Base baseDeDatos;
+        private readonly RepositorioCadete repCadetes;
 
-        public HomeController(ILogger<HomeController> logger, Base BaseDeDatos)
+        public HomeController(ILogger<HomeController> logger, RepositorioCadete RepCadete)
         {
             _logger = logger;
-            baseDeDatos = BaseDeDatos;
+            repCadetes = RepCadete;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+        
 
         public IActionResult Privacy()
         {

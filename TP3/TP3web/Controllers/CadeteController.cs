@@ -11,13 +11,13 @@ namespace TP3web.Controllers
     public class CadeteController : Controller
     {
         private readonly ILogger<CadeteController> _logger;
-        private readonly Base baseDeDatos;
+        private readonly RepositorioCadete repCadetes;
 
-        public CadeteController(ILogger<CadeteController> logger, Base BaseDeDatos)
+        public CadeteController(ILogger<CadeteController> logger, RepositorioCadete RepCadetes)
         {
             _logger = logger;
             _logger.LogDebug(1, "NLog injected into Cadete Controller");
-            baseDeDatos = BaseDeDatos;
+            repCadetes= RepCadetes;
         }
 
         public IActionResult Index()
@@ -29,22 +29,16 @@ namespace TP3web.Controllers
         {
             try
             {
-                int id = 0;
-                if (baseDeDatos.cadeteria.listaCadetes.Count() > 0)
-                {
-                    id = baseDeDatos.cadeteria.listaCadetes.Max(x => x.Id) + 1;
-                }
 
                 Cadete cad = new()
                 {
                     Nombre = nombre,
                     Direccion = direccion,
                     Telefono = telefono,
-                    Id = id
+                    Id = repCadetes.maxID()+1
                 };
-                baseDeDatos.cadeteria.listaCadetes.Add(cad);
-                baseDeDatos.GuardarCadeteria();
-                _logger.LogInformation("Usuario Id: {0} Creado", id);
+                repCadetes.añadirCadete(cad);
+                _logger.LogInformation("Usuario Id: {0} Creado", cad.Id);
             }
             catch (Exception exception)
             {
@@ -59,9 +53,9 @@ namespace TP3web.Controllers
         {
             try
             {
-                Cadete cadeteToRemove = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
-                baseDeDatos.cadeteria.listaCadetes.Remove(cadeteToRemove);
-                baseDeDatos.GuardarCadeteria();
+                //Cadete cadeteToRemove = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
+                //baseDeDatos.cadeteria.listaCadetes.Remove(cadeteToRemove);
+                //baseDeDatos.GuardarCadeteria();
                 _logger.LogInformation("Usuario Id: {0} Borrado", id_cad);
             }
             catch (Exception exception)
@@ -79,8 +73,8 @@ namespace TP3web.Controllers
             try
             {
                 Pedido ped = new Pedido(numero, observacion, estado, id_c, nombre_c, direccion_c, telefono_c);
-                baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == cad_id).agregarPedido(ped);
-                baseDeDatos.GuardarCadeteria();
+                //baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == cad_id).agregarPedido(ped);
+                //baseDeDatos.GuardarCadeteria();
             }
             catch (Exception exception)
             {
@@ -95,11 +89,11 @@ namespace TP3web.Controllers
         {
             try
             {
-                Cadete cadeteToUpdate = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
-                cadeteToUpdate.Nombre = nombre;
-                cadeteToUpdate.Direccion = direccion;
-                cadeteToUpdate.Telefono = telefono;
-                baseDeDatos.GuardarCadeteria();
+                //Cadete cadeteToUpdate = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
+                //cadeteToUpdate.Nombre = nombre;
+                //cadeteToUpdate.Direccion = direccion;
+                //cadeteToUpdate.Telefono = telefono;
+                //baseDeDatos.GuardarCadeteria();
             }
             catch (Exception exception)
             {
@@ -116,23 +110,23 @@ namespace TP3web.Controllers
 
         public IActionResult ModificarCadete(int id_cad)
         {
-            Cadete cadeteAModificar = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
+            Cadete cadeteAModificar = repCadetes.cadetePorID(id_cad);
             return View(cadeteAModificar);
         }
 
 
         public IActionResult AgregarPedido()
         {
-            return View(baseDeDatos.cadeteria.listaCadetes);
+            return View();// baseDeDatos.cadeteria.listaCadetes);
         }
         public IActionResult ListarCadetes()
         {
-            return View(baseDeDatos.cadeteria.listaCadetes);
+            return View(repCadetes.ListaCadetes());
         }
         public IActionResult ListarPedidos(int id_cad)
         {
 
-            return View(baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == id_cad).ListadoPedidos);
+            return View();// baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == id_cad).ListadoPedidos);
         }
 
     }
