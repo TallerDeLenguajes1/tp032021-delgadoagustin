@@ -30,7 +30,13 @@ namespace TP3web.Controllers
         {
             return View();
         }
-        
+
+        public void Auth(string usuario,string pass)
+        {
+            
+        }
+
+
 
         public IActionResult Privacy()
         {

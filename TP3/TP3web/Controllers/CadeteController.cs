@@ -89,11 +89,14 @@ namespace TP3web.Controllers
         {
             try
             {
-                //Cadete cadeteToUpdate = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
-                //cadeteToUpdate.Nombre = nombre;
-                //cadeteToUpdate.Direccion = direccion;
-                //cadeteToUpdate.Telefono = telefono;
-                //baseDeDatos.GuardarCadeteria();
+                Cadete cad = new()
+                {
+                    Nombre = nombre,
+                    Direccion = direccion,
+                    Telefono = telefono,
+                    Id = id_cad
+                };
+                repCadetes.modificarCadete(cad);
             }
             catch (Exception exception)
             {
@@ -117,7 +120,7 @@ namespace TP3web.Controllers
 
         public IActionResult AgregarPedido()
         {
-            return View();// baseDeDatos.cadeteria.listaCadetes);
+            return View(repCadetes.ListaCadetes());
         }
         public IActionResult ListarCadetes()
         {
@@ -125,8 +128,7 @@ namespace TP3web.Controllers
         }
         public IActionResult ListarPedidos(int id_cad)
         {
-
-            return View();// baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == id_cad).ListadoPedidos);
+            return View(repCadetes.cadetePorID(id_cad).ListadoPedidos);
         }
 
     }

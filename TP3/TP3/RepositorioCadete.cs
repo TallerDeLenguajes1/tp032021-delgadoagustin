@@ -81,6 +81,34 @@ namespace TP3
             
         }
 
+        public void modificarCadete(Cadete cad)
+        {
+            string consultaSQL = "UPDATE Cadetes" +
+                "SET cadeteNombre = @nombre, cadeteTelefono = @telefono, cadeteDireccion = @direccion" +
+                "WHERE cadeteID = @id";
+            try
+            {
+                using (var conexion = new SQLiteConnection(cadenaConexion))
+                {
+                    using (SQLiteCommand command = new(consultaSQL, conexion))
+                    {
+                        command.Parameters.AddWithValue("@nombre", cad.Nombre);
+                        command.Parameters.AddWithValue("@telefono", cad.Telefono);
+                        command.Parameters.AddWithValue("@direccion", cad.Direccion);
+                        command.Parameters.AddWithValue("@id", cad.Id);
+                        conexion.Open();
+                        command.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+        }
+
         public Cadete cadetePorID(int id)
         {
             Cadete cad = new();
