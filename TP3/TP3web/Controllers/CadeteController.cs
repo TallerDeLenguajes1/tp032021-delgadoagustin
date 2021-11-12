@@ -53,9 +53,7 @@ namespace TP3web.Controllers
         {
             try
             {
-                //Cadete cadeteToRemove = baseDeDatos.cadeteria.listaCadetes.Single(x => x.Id == id_cad);
-                //baseDeDatos.cadeteria.listaCadetes.Remove(cadeteToRemove);
-                //baseDeDatos.GuardarCadeteria();
+                repCadetes.borrarCadete(id_cad);
                 _logger.LogInformation("Usuario Id: {0} Borrado", id_cad);
             }
             catch (Exception exception)
