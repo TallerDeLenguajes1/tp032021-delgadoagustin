@@ -23,7 +23,6 @@ namespace TP3web.Controllers
 
         public IActionResult Index()
         {
-
             //HttpContext.Session.SetString
             return View();
         }
@@ -151,7 +150,7 @@ namespace TP3web.Controllers
             
             if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
             {
-                return View(repCadetes.cadetePorID(id_cad).ListadoPedidos);
+                return View(repCadetes.ListarPedidoCadete(id_cad));
             }
             
             return RedirectToAction("Login","Home");

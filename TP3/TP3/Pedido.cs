@@ -18,6 +18,8 @@ namespace TP3
         public Cliente Cliente { get => cliente; set => cliente = value; }
         public string Estado { get => estado; set => estado = value; }
 
+        public Pedido(){}
+
         public Pedido(int n,string o,string e,int id_c,string nombre_c, string direccion_c, string telefono_c)
         {
             numero = n;

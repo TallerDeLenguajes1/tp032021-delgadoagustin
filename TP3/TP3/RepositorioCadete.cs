@@ -195,57 +195,85 @@ namespace TP3
 
         //Clientes
 
-        // public Cliente clientePorId(int id){
+        public Cliente clientePorId(int id){
+            Cliente cliente = null;
+            string consultaSQL = "SELECT * FROM Clientes WHERE clienteID=@id;";
+            try
+            {
+                using (var conexion = new SQLiteConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    using (SQLiteCommand command = new(consultaSQL, conexion))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SQLiteDataReader dataReader = command.ExecuteReader())
+                        {
+                            while (dataReader.Read())
+                            {
+                                cliente = new Cliente(
+                                    Convert.ToInt32(dataReader["clienteID"]),
+                                    dataReader["clienteNombre"].ToString(),
+                                    dataReader["clienteDireccion"].ToString(),
+                                    dataReader["clienteTelefono"].ToString()
+                                );
+                            }
 
-        // }
+                        }
+                        conexion.Close();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+            return cliente;
+
+        }
 
         //PEDIDOS
 
-        // public List<Pedido> ListarPedidoCadete(int idcad)
-        // {
-        //    List<Pedido> listado = new();
-        //    try
-        //    {
-        //        string consultaSQL = "SELECT * FROM Pedidos " +
-        //            "INNER JOIN Cadetes ON Pedidos.cadeteId = Cadetes.cadeteID " +
-        //            "WHERE Cadetes.cadeteID = @id; ";
-        //        using (var conexion = new SQLiteConnection(cadenaConexion))
-        //        {
+        public List<Pedido> ListarPedidoCadete(int idcad)
+        {
+           List<Pedido> listado = new();
+           try
+           {
+               string consultaSQL = "SELECT * FROM Pedidos " +
+                   "INNER JOIN Cadetes ON Pedidos.cadeteId = Cadetes.cadeteID " +
+                   "WHERE Cadetes.cadeteID = @id; ";
+               using (var conexion = new SQLiteConnection(cadenaConexion))
+               {
 
-        //            using (SQLiteCommand command = new(consultaSQL, conexion))
-        //            {
-        //                command.Parameters.AddWithValue("@id", id);
-        //                conexion.Open();
-        //                using (SQLiteDataReader dataReader = command.ExecuteReader())
-        //                {
-        //                    while (dataReader.Read())
-        //                    {
-        //                        Pedido pedido = new Pedido()
-        //                        {
-        //                            Numero = Convert.ToInt32(dataReader["pedidoID"]),
-        //                            Cliente = new Cliente(){
-        //                                id=Convert.ToInt32(dataReader["clienteId"]),
-        //                                nombre=dataReader["clienteNombre"].ToString(),
-        //                                direccion=dataReader["clienteDireccion"].ToString(),
-        //                                telefono=dataReader["clienteTelefono"].ToString()
-        //                            },
-        //                            Estado = dataReader["pedidoEstado"].ToString(),
-        //                            Obs = dataReader["pedidoObs"].ToString()
-        //                        };
-        //                        listado.Add(pedido);
-        //                    }
-        //                }
-        //                conexion.Close();
-        //            }
+                   using (SQLiteCommand command = new(consultaSQL, conexion))
+                   {
+                       command.Parameters.AddWithValue("@id", idcad);
+                       conexion.Open();
+                       using (SQLiteDataReader dataReader = command.ExecuteReader())
+                       {
+                           while (dataReader.Read())
+                           {
+                               Pedido pedido = new Pedido()
+                               {
+                                   Numero = Convert.ToInt32(dataReader["pedidoID"]),
+                                   Cliente = clientePorId(Convert.ToInt32(dataReader["clienteId"])),
+                                   Estado = dataReader["pedidoEstado"].ToString(),
+                                   Obs = dataReader["pedidoObs"].ToString()
+                               };
+                               listado.Add(pedido);
+                           }
+                       }
+                       conexion.Close();
+                   }
 
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ex.ToString();
-        //    }
-        //    return listado;
-        // }
+               }
+           }
+           catch (Exception ex)
+           {
+               ex.ToString();
+           }
+           return listado;
+        }
 
         //USUARIO
 
