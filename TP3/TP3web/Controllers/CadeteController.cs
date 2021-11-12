@@ -109,27 +109,52 @@ namespace TP3web.Controllers
 
         public IActionResult AgregarCadete()
         {
-            return View();
+            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            {
+                return View();
+            }
+            
+            return RedirectToAction("Login","Home");
         }
 
         public IActionResult ModificarCadete(int id_cad)
         {
-            Cadete cadeteAModificar = repCadetes.cadetePorID(id_cad);
-            return View(cadeteAModificar);
+            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            {
+                return View(repCadetes.cadetePorID(id_cad));
+            }
+            
+            return RedirectToAction("Login","Home");
         }
 
 
         public IActionResult AgregarPedido()
         {
-            return View(repCadetes.ListaCadetes());
+            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            {
+                return View(repCadetes.ListaCadetes());
+            }
+            
+            return RedirectToAction("Login","Home");
         }
         public IActionResult ListarCadetes()
-        {
-            return View(repCadetes.ListaCadetes());
+        { 
+            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            {
+                return View(repCadetes.ListaCadetes());
+            }
+            
+            return RedirectToAction("Login","Home");
         }
         public IActionResult ListarPedidos(int id_cad)
         {
-            return View(repCadetes.cadetePorID(id_cad).ListadoPedidos);
+            
+            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            {
+                return View(repCadetes.cadetePorID(id_cad).ListadoPedidos);
+            }
+            
+            return RedirectToAction("Login","Home");
         }
 
     }

@@ -34,12 +34,13 @@ namespace TP3web.Controllers
 
         public IActionResult Auth(string usuario,string pass)
         {
-            if(true){
-
+            if(repCadetes.existeUsuario(usuario,pass)){
+                HttpContext.Session.SetString("usuario", usuario);
+                HttpContext.Session.SetString("pass", pass);
+                return RedirectToAction("ListarCadetes","Cadete");
             }
-            HttpContext.Session.SetString("usuario", usuario);
-            HttpContext.Session.SetString("pass", pass);
-            return RedirectToAction("ListarCadetes","Cadete");
+            
+            return RedirectToAction("Login");
         }
         
         public IActionResult Privacy()
