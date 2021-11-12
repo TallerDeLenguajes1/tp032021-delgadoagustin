@@ -193,10 +193,16 @@ namespace TP3
             return ID;
         }
 
+        //Clientes
+
+        public Cliente clientePorId(int id){
+
+        // }
+
         //PEDIDOS
 
-        //public List<Pedido> ListarPedidoCadete(int idcad)
-        //{
+        // public List<Pedido> ListarPedidoCadete(int idcad)
+        // {
         //    List<Pedido> listado = new();
         //    try
         //    {
@@ -217,11 +223,16 @@ namespace TP3
         //                        Pedido pedido = new Pedido()
         //                        {
         //                            Numero = Convert.ToInt32(dataReader["pedidoID"]),
-        //                            Cliente = Convert.ToInt32(dataReader["clienteID"]),
-        //                            Estado = dataReader["cadeteDireccion"].ToString(),
-        //                            Obs = dataReader["cadeteTelefono"].ToString()
+        //                            Cliente = new Cliente(){
+        //                                id=Convert.ToInt32(dataReader["clienteId"]),
+        //                                nombre=dataReader["clienteNombre"].ToString(),
+        //                                direccion=dataReader["clienteDireccion"].ToString(),
+        //                                telefono=dataReader["clienteTelefono"].ToString()
+        //                            },
+        //                            Estado = dataReader["pedidoEstado"].ToString(),
+        //                            Obs = dataReader["pedidoObs"].ToString()
         //                        };
-        //                        listado.Add(cadete);
+        //                        listado.Add(pedido);
         //                    }
         //                }
         //                conexion.Close();
@@ -234,7 +245,7 @@ namespace TP3
         //        ex.ToString();
         //    }
         //    return listado;
-        //}
+        // }
 
     }
 }
