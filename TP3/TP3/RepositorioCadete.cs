@@ -195,7 +195,7 @@ namespace TP3
 
         //Clientes
 
-        public Cliente clientePorId(int id){
+        // public Cliente clientePorId(int id){
 
         // }
 
@@ -246,6 +246,34 @@ namespace TP3
         //    }
         //    return listado;
         // }
+
+        //USUARIO
+
+        //public bool usuarioDB(string usuario, string pass)
+        //{
+                
+        //        string consultaSQL = "SELECT max(id) FROM Usuarios WH;";
+        //        try
+        //        {
+        //            using (var conexion = new SQLiteConnection(cadenaConexion))
+        //            {
+        //                using (SQLiteCommand command = new(consultaSQL, conexion))
+        //                {
+
+        //                    conexion.Open();
+        //                    ID = Convert.ToInt32(command.ExecuteScalar());
+        //                    conexion.Close();
+        //                }
+
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ex.ToString();
+        //        }
+        //        return ID;
+
+        //    }
 
     }
 }

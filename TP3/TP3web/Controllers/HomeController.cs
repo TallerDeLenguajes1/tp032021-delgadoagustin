@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -31,13 +32,16 @@ namespace TP3web.Controllers
             return View();
         }
 
-        public void Auth(string usuario,string pass)
+        public IActionResult Auth(string usuario,string pass)
         {
-            
+            if(true){
+
+            }
+            HttpContext.Session.SetString("usuario", usuario);
+            HttpContext.Session.SetString("pass", pass);
+            return RedirectToAction("ListarCadetes","Cadete");
         }
-
-
-
+        
         public IActionResult Privacy()
         {
             return View();

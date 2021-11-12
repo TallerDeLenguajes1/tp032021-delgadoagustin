@@ -11,5 +11,11 @@ namespace TP3
         int id;
         string nombre;
         string password;
+        string tipo;
+
+        public int Id { get => id; set => id = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public string Password { get => password; set => password = value; }
+        public string Tipo { get => tipo; set => tipo = value; }
     }
 }
