@@ -193,5 +193,48 @@ namespace TP3
             return ID;
         }
 
+        //PEDIDOS
+
+        //public List<Pedido> ListarPedidoCadete(int idcad)
+        //{
+        //    List<Pedido> listado = new();
+        //    try
+        //    {
+        //        string consultaSQL = "SELECT * FROM Pedidos " +
+        //            "INNER JOIN Cadetes ON Pedidos.cadeteId = Cadetes.cadeteID " +
+        //            "WHERE Cadetes.cadeteID = @id; ";
+        //        using (var conexion = new SQLiteConnection(cadenaConexion))
+        //        {
+
+        //            using (SQLiteCommand command = new(consultaSQL, conexion))
+        //            {
+        //                command.Parameters.AddWithValue("@id", id);
+        //                conexion.Open();
+        //                using (SQLiteDataReader dataReader = command.ExecuteReader())
+        //                {
+        //                    while (dataReader.Read())
+        //                    {
+        //                        Pedido pedido = new Pedido()
+        //                        {
+        //                            Numero = Convert.ToInt32(dataReader["pedidoID"]),
+        //                            Cliente = Convert.ToInt32(dataReader["clienteID"]),
+        //                            Estado = dataReader["cadeteDireccion"].ToString(),
+        //                            Obs = dataReader["cadeteTelefono"].ToString()
+        //                        };
+        //                        listado.Add(cadete);
+        //                    }
+        //                }
+        //                conexion.Close();
+        //            }
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ex.ToString();
+        //    }
+        //    return listado;
+        //}
+
     }
 }
