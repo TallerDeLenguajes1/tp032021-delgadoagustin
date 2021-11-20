@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using TP3;
-using TP3web.Models;
+using Entidades;
 
 namespace TP3web.Controllers
 {

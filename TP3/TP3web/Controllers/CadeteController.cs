@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TP3;
+using Entidades;
 
 namespace TP3web.Controllers
 {
@@ -26,21 +26,23 @@ namespace TP3web.Controllers
             //HttpContext.Session.SetString
             return View();
         }
+        
+        public IActionResult AgregarCadete()
+                {
+                    if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+                    {
+                        return View();
+                    }
+            
+                    return RedirectToAction("Login","Home");
+                }
 
-        public IActionResult addCadete(string nombre,string direccion,string telefono)
+        [HttpPost]
+        public IActionResult AgregarCadete(Cadete cadete)
         {
             try
             {
-
-                Cadete cad = new()
-                {
-                    Nombre = nombre,
-                    Direccion = direccion,
-                    Telefono = telefono,
-                    Id = repCadetes.maxID()+1
-                };
-                repCadetes.añadirCadete(cad);
-                _logger.LogInformation("Usuario Id: {0} Creado", cad.Id);
+                repCadetes.añadirCadete(cadete);
             }
             catch (Exception exception)
             {
@@ -51,7 +53,9 @@ namespace TP3web.Controllers
 
             return RedirectToAction("ListarCadetes");
         }
-        public IActionResult deleteCadete(int id_cad)
+
+        [HttpPost]
+        public IActionResult BorrarCadete(int id_cad)
         {
             try
             {
@@ -61,60 +65,27 @@ namespace TP3web.Controllers
             catch (Exception exception)
             {
                 _logger.LogError(exception, "Error al Borrar Cadete");
-                exception.ToString();
             }
 
             return RedirectToAction("ListarCadetes");
         }
 
-
-        public IActionResult addPedido(int numero, string observacion, string estado, int cad_id, int id_c, string nombre_c, string direccion_c, string telefono_c)
+        [HttpPost]
+        public IActionResult ModificarCadete(Cadete cadete)
         {
             try
             {
-                Pedido ped = new Pedido(numero, observacion, estado, id_c, nombre_c, direccion_c, telefono_c);
-                //baseDeDatos.cadeteria.listaCadetes.Find(x => x.Id == cad_id).agregarPedido(ped);
-                //baseDeDatos.GuardarCadeteria();
+                repCadetes.modificarCadete(cadete);
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Error al Agregar Pedido");
-                exception.ToString();
+                _logger.LogError(exception,"Error al Modificar cadete");
             }
 
             return RedirectToAction("ListarCadetes");
         }
 
-        public IActionResult updateCadete(int id_cad,string nombre,string direccion,string telefono)
-        {
-            try
-            {
-                Cadete cad = new()
-                {
-                    Nombre = nombre,
-                    Direccion = direccion,
-                    Telefono = telefono,
-                    Id = id_cad
-                };
-                repCadetes.modificarCadete(cad);
-            }
-            catch (Exception exception)
-            {
-                exception.ToString();
-            }
-
-            return RedirectToAction("ListarCadetes");
-    }
-
-        public IActionResult AgregarCadete()
-        {
-            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
-            {
-                return View();
-            }
-            
-            return RedirectToAction("Login","Home");
-        }
+        
 
         public IActionResult ModificarCadete(int id_cad)
         {
@@ -126,16 +97,8 @@ namespace TP3web.Controllers
             return RedirectToAction("Login","Home");
         }
 
-
-        public IActionResult AgregarPedido()
-        {
-            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
-            {
-                return View(repCadetes.ListaCadetes());
-            }
-            
-            return RedirectToAction("Login","Home");
-        }
+        
+        
         public IActionResult ListarCadetes()
         { 
             if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
@@ -145,16 +108,7 @@ namespace TP3web.Controllers
             
             return RedirectToAction("Login","Home");
         }
-        public IActionResult ListarPedidos(int id_cad)
-        {
-            
-            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
-            {
-                return View(repCadetes.ListarPedidoCadete(id_cad));
-            }
-            
-            return RedirectToAction("Login","Home");
-        }
+        
 
     }
 }
