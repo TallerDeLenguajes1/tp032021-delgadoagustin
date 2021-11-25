@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Entidades;
+using TP3web.Models;
 
 namespace TP3web.Controllers
 {

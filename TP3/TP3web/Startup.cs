@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Entidades;
 
 namespace TP3web
 {
@@ -27,7 +28,7 @@ namespace TP3web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            TP3.RepositorioCadete RepCadetes = new(Configuration.GetConnectionString("Default"));
+            RepositorioCadete RepCadetes = new(Configuration.GetConnectionString("Default"));
             services.AddSingleton(RepCadetes);
             services.AddDistributedMemoryCache();
             services.AddSession(options =>

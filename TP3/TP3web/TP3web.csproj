@@ -17,4 +17,8 @@
     <ProjectReference Include="..\TP3\TP3.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ViewModels\" />
+  </ItemGroup>
+
 </Project>

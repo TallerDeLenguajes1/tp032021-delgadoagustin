@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model List<TP3.Cadete>;
+@model List<Entidades.Cadete>;
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
                         <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarCadete">Agregar Cadete</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Cadete" asp-action="AgregarPedido">Agregar Pedido</a>
+                        <a class="nav-link" asp-area="" asp-controller="Pedido" asp-action="AgregarPedido">Agregar Pedido</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" asp-area="" asp-controller="Cadete" asp-action="ListarCadetes">Listar Cadetes</a>
@@ -42,7 +42,7 @@
         <td>@cad.Telefono</td>
         <td>@cad.Direccion</td>
         <td>
-            <form asp-action="ListarPedidos" asp-controller="Cadete" method="post">
+            <form asp-action="ListarPedidos" asp-controller="Pedido" method="post">
                 <button class="btn btn-primary btn-sm m-auto" type="submit" name="id_cad" value="@cad.Id">Mostrar Pedidos</button>
             </form>
         </td>
