@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Entidades;
 using DB;
+using AutoMapper;
+using TP3web.Models.ViewModels;
 
 namespace TP3web.Controllers
 {
@@ -14,12 +16,14 @@ namespace TP3web.Controllers
     {
         private readonly ILogger<CadeteController> _logger;
         private readonly IDB repositorio;
+        private readonly IMapper mapper;
 
-        public CadeteController(ILogger<CadeteController> logger, IDB Repositorio)
+        public CadeteController(ILogger<CadeteController> logger, IDB Repositorio, IMapper Mapper)
         {
             _logger = logger;
             _logger.LogDebug(1, "NLog injected into Cadete Controller");
             repositorio= Repositorio;
+            mapper = Mapper;
         }
 
         public IActionResult Index()
@@ -27,16 +31,27 @@ namespace TP3web.Controllers
             //HttpContext.Session.SetString
             return View();
         }
-        
+
+
+        public IActionResult AgregarCadete2()
+        {
+            if (repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            {
+                return View(new CadeteViewModel());
+            }
+
+            return RedirectToAction("Login", "Home");
+        }
+
         public IActionResult AgregarCadete()
-                {
-                    if(repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
-                    {
-                        return View();
-                    }
-            
-                    return RedirectToAction("Login","Home");
-                }
+        {
+            if (repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            {
+                return View(new CadeteViewModel());
+            }
+
+            return RedirectToAction("Login", "Home");
+        }
 
         [HttpPost]
         public IActionResult AgregarCadete(Cadete cadete)
@@ -85,9 +100,7 @@ namespace TP3web.Controllers
 
             return RedirectToAction("ListarCadetes");
         }
-
-        
-
+     
         public IActionResult ModificarCadete(int id_cad)
         {
             if(repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
@@ -97,14 +110,14 @@ namespace TP3web.Controllers
             
             return RedirectToAction("Login","Home");
         }
-
-        
-        
+     
         public IActionResult ListarCadetes()
         { 
             if(repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
             {
-                return View(repositorio.RepositorioCadete.ListaCadetes());
+                List<Cadete> listado = repositorio.RepositorioCadete.ListaCadetes();
+                var listadoView = mapper.Map <List<CadeteViewModel>> (listado);
+                return View(listadoView);
             }
             
             return RedirectToAction("Login","Home");

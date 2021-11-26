@@ -28,6 +28,7 @@ namespace TP3web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MapperProfile));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             IDB Repositorio = new SQLiteDB(Configuration.GetConnectionString("Default"));
             services.AddSingleton(Repositorio);
