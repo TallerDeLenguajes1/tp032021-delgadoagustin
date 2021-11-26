@@ -6,19 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entidades;
+using DB;
 
 namespace TP3web.Controllers
 {
     public class CadeteController : Controller
     {
         private readonly ILogger<CadeteController> _logger;
-        private readonly RepositorioCadete repCadetes;
+        private readonly IDB repositorio;
 
-        public CadeteController(ILogger<CadeteController> logger, RepositorioCadete RepCadetes)
+        public CadeteController(ILogger<CadeteController> logger, IDB Repositorio)
         {
             _logger = logger;
             _logger.LogDebug(1, "NLog injected into Cadete Controller");
-            repCadetes= RepCadetes;
+            repositorio= Repositorio;
         }
 
         public IActionResult Index()
@@ -29,7 +30,7 @@ namespace TP3web.Controllers
         
         public IActionResult AgregarCadete()
                 {
-                    if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+                    if(repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
                     {
                         return View();
                     }
@@ -42,7 +43,7 @@ namespace TP3web.Controllers
         {
             try
             {
-                repCadetes.añadirCadete(cadete);
+                repositorio.RepositorioCadete.AgregarCadete(cadete);
             }
             catch (Exception exception)
             {
@@ -59,7 +60,7 @@ namespace TP3web.Controllers
         {
             try
             {
-                repCadetes.borrarCadete(id_cad);
+                repositorio.RepositorioCadete.BorrarCadete(id_cad);
                 _logger.LogInformation("Usuario Id: {0} Borrado", id_cad);
             }
             catch (Exception exception)
@@ -75,7 +76,7 @@ namespace TP3web.Controllers
         {
             try
             {
-                repCadetes.modificarCadete(cadete);
+                repositorio.RepositorioCadete.ModificarCadete(cadete);
             }
             catch (Exception exception)
             {
@@ -89,9 +90,9 @@ namespace TP3web.Controllers
 
         public IActionResult ModificarCadete(int id_cad)
         {
-            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            if(repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
             {
-                return View(repCadetes.cadetePorID(id_cad));
+                return View(repositorio.RepositorioCadete.CadetePorID(id_cad));
             }
             
             return RedirectToAction("Login","Home");
@@ -101,9 +102,9 @@ namespace TP3web.Controllers
         
         public IActionResult ListarCadetes()
         { 
-            if(repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            if(repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
             {
-                return View(repCadetes.ListaCadetes());
+                return View(repositorio.RepositorioCadete.ListaCadetes());
             }
             
             return RedirectToAction("Login","Home");

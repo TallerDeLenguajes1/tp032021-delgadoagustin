@@ -7,19 +7,20 @@ using Entidades;
 using Microsoft.Extensions.Logging;
 using NLog;
 using Microsoft.AspNetCore.Http;
+using DB;
 
 namespace TP3web.Controllers
 {
     public class PedidoController : Controller
     {
         private readonly ILogger<PedidoController> _logger;
-        private readonly RepositorioCadete repCadetes;
+        private readonly IDB repositorio;
 
-        public PedidoController(ILogger<PedidoController> logger, RepositorioCadete RepCadetes)
+        public PedidoController(ILogger<PedidoController> logger, IDB Repositorio)
         {
             _logger = logger;
             _logger.LogDebug(1, "NLog injected into Cadete Controller");
-            repCadetes = RepCadetes;
+            repositorio = Repositorio;
         }
 
         public IActionResult Index()
@@ -29,16 +30,16 @@ namespace TP3web.Controllers
 
         public IActionResult AgregarPedido()
         {
-            if (repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            if (repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
             {
-                return View(repCadetes.ListaCadetes());
+                return View(repositorio.RepositorioCadete.ListaCadetes());
             }
 
             return RedirectToAction("Login", "Home");
         }
 
         [HttpPost]
-        public IActionResult addPedido(Pedido pedido,int cad_id)
+        public IActionResult AgregarPedido(Pedido pedido,int cad_id)
         {
             try
             {
@@ -56,9 +57,9 @@ namespace TP3web.Controllers
         public IActionResult ListarPedidos(int id_cad)
         {
 
-            if (repCadetes.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            if (repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
             {
-                return View(repCadetes.ListarPedidoCadete(id_cad));
+                return View(repositorio.RepositorioPedido.ListarPedidoCadete(id_cad));
             }
 
             return RedirectToAction("Login", "Home");

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entidades;
+using DB;
 
 namespace TP3web
 {
@@ -28,8 +29,8 @@ namespace TP3web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            RepositorioCadete RepCadetes = new(Configuration.GetConnectionString("Default"));
-            services.AddSingleton(RepCadetes);
+            IDB Repositorio = new SQLiteDB(Configuration.GetConnectionString("Default"));
+            services.AddSingleton(Repositorio);
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {

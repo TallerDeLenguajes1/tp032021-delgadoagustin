@@ -1,17 +1,28 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entidades
+namespace DB
 {
-    public class RepositorioCadete
+    public interface IRepositorioCadete
+    {
+        void AgregarCadete(Cadete cad);
+        void BorrarCadete(int id);
+        Cadete CadetePorID(int id);
+        List<Cadete> ListaCadetes();
+        int ObtenerMaxID();
+        void ModificarCadete(Cadete cad);
+    }
+
+    public class SQLiteRepositorioCadete : IRepositorioCadete
     {
         public readonly string cadenaConexion;
 
-        public RepositorioCadete(string cadena)
+        public SQLiteRepositorioCadete(string cadena)
         {
             cadenaConexion = cadena;
         }
@@ -24,7 +35,7 @@ namespace Entidades
                 string consultaSQL = "SELECT * FROM Cadetes";
                 using (var conexion = new SQLiteConnection(cadenaConexion))
                 {
-                    
+
                     using (SQLiteCommand command = new(consultaSQL, conexion))
                     {
                         conexion.Open();
@@ -44,7 +55,7 @@ namespace Entidades
                         }
                         conexion.Close();
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -54,7 +65,7 @@ namespace Entidades
             return listado;
         }
 
-        public void añadirCadete(Cadete cad)
+        public void AgregarCadete(Cadete cad)
         {
             string consultaSQL = "INSERT INTO Cadetes(cadeteNombre, cadeteTelefono, cadeteDireccion)" +
                 "VALUES (@nombre, @telefono, @direccion);";
@@ -71,17 +82,17 @@ namespace Entidades
                         command.ExecuteNonQuery();
                         conexion.Close();
                     }
-                    
+
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.ToString();
             }
-            
+
         }
 
-        public void modificarCadete(Cadete cad)
+        public void ModificarCadete(Cadete cad)
         {
             string consultaSQL = "UPDATE Cadetes" +
                 " SET cadeteNombre = @nombre, cadeteTelefono = @telefono, cadeteDireccion = @direccion" +
@@ -108,8 +119,8 @@ namespace Entidades
                 ex.ToString();
             }
         }
-        
-        public void borrarCadete(int id)
+
+        public void BorrarCadete(int id)
         {
             string consultaSQL = "DELETE FROM Cadetes WHERE cadeteID = @id;";
             try
@@ -132,7 +143,7 @@ namespace Entidades
             }
         }
 
-        public Cadete cadetePorID(int id)
+        public Cadete CadetePorID(int id)
         {
             Cadete cad = new();
             string consultaSQL = "SELECT * FROM Cadetes WHERE cadeteID=@id;";
@@ -169,7 +180,7 @@ namespace Entidades
             return cad;
         }
 
-        public int maxID()
+        public int ObtenerMaxID()
         {
             int ID = 0;
             string consultaSQL = "SELECT max(id) FROM Cadetes;";
@@ -179,7 +190,7 @@ namespace Entidades
                 {
                     using (SQLiteCommand command = new(consultaSQL, conexion))
                     {
-                        
+
                         conexion.Open();
                         ID = Convert.ToInt32(command.ExecuteScalar());
                         conexion.Close();
@@ -194,120 +205,6 @@ namespace Entidades
             return ID;
         }
 
-        //Clientes
-
-        public Cliente clientePorId(int id){
-            Cliente cliente = null;
-            string consultaSQL = "SELECT * FROM Clientes WHERE clienteID=@id;";
-            try
-            {
-                using (var conexion = new SQLiteConnection(cadenaConexion))
-                {
-                    conexion.Open();
-                    using (SQLiteCommand command = new(consultaSQL, conexion))
-                    {
-                        command.Parameters.AddWithValue("@id", id);
-                        using (SQLiteDataReader dataReader = command.ExecuteReader())
-                        {
-                            while (dataReader.Read())
-                            {
-                                cliente = new Cliente(
-                                    Convert.ToInt32(dataReader["clienteID"]),
-                                    dataReader["clienteNombre"].ToString(),
-                                    dataReader["clienteDireccion"].ToString(),
-                                    dataReader["clienteTelefono"].ToString()
-                                );
-                            }
-
-                        }
-                        conexion.Close();
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
-            return cliente;
-
-        }
-
-        //PEDIDOS
-
-        public List<Pedido> ListarPedidoCadete(int idcad)
-        {
-           List<Pedido> listado = new();
-           try
-           {
-               string consultaSQL = "SELECT * FROM Pedidos " +
-                   "INNER JOIN Cadetes ON Pedidos.cadeteId = Cadetes.cadeteID " +
-                   "WHERE Cadetes.cadeteID = @id; ";
-               using (var conexion = new SQLiteConnection(cadenaConexion))
-               {
-
-                   using (SQLiteCommand command = new(consultaSQL, conexion))
-                   {
-                       command.Parameters.AddWithValue("@id", idcad);
-                       conexion.Open();
-                       using (SQLiteDataReader dataReader = command.ExecuteReader())
-                       {
-                           while (dataReader.Read())
-                           {
-                               Pedido pedido = new Pedido()
-                               {
-                                   Numero = Convert.ToInt32(dataReader["pedidoID"]),
-                                   Cliente = clientePorId(Convert.ToInt32(dataReader["clienteId"])),
-                                   Estado = dataReader["pedidoEstado"].ToString(),
-                                   Obs = dataReader["pedidoObs"].ToString()
-                               };
-                               listado.Add(pedido);
-                           }
-                       }
-                       conexion.Close();
-                   }
-
-               }
-           }
-           catch (Exception ex)
-           {
-               ex.ToString();
-           }
-           return listado;
-        }
-
-        //USUARIO
-
-        public bool existeUsuario(string usuario, string pass)
-        {
-            bool b = false;
-            string consultaSQL = "SELECT count() FROM Usuarios "
-            + "WHERE usuarioNombre = @usuario AND usuarioPass = @pass;";
-            try
-            {
-                using (var conexion = new SQLiteConnection(cadenaConexion))
-                {
-                    
-                    using (SQLiteCommand command = new(consultaSQL, conexion))
-                    {
-                        command.Parameters.AddWithValue("@usuario", usuario);
-                        command.Parameters.AddWithValue("@pass", pass);
-                        conexion.Open();
-                        if(Convert.ToInt32(command.ExecuteScalar())>0){
-                            b = true;
-                        }
-                        conexion.Close();
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
-            return b;
-
-        }
 
     }
 }

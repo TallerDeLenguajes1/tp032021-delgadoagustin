@@ -8,33 +8,38 @@ using System.Linq;
 using System.Threading.Tasks;
 using Entidades;
 using TP3web.Models;
+using DB;
 
 namespace TP3web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly RepositorioCadete repCadetes;
+        private readonly IDB repositorio;
 
-        public HomeController(ILogger<HomeController> logger, RepositorioCadete RepCadete)
+        public HomeController(ILogger<HomeController> logger, IDB Repositorio)
         {
             _logger = logger;
-            repCadetes = RepCadete;
+            repositorio = Repositorio;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View("Login");
         }
 
         public IActionResult Login()
         {
+            if (repositorio.RepositorioUsuario.existeUsuario(HttpContext.Session.GetString("usuario"), HttpContext.Session.GetString("pass")))
+            {
+                return RedirectToAction("ListarCadetes", "Cadete");
+            }
             return View();
         }
 
         public IActionResult Auth(string usuario,string pass)
         {
-            if(repCadetes.existeUsuario(usuario,pass)){
+            if(repositorio.RepositorioUsuario.existeUsuario(usuario,pass)){
                 HttpContext.Session.SetString("usuario", usuario);
                 HttpContext.Session.SetString("pass", pass);
                 return RedirectToAction("ListarCadetes","Cadete");
